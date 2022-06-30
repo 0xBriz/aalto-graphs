@@ -1,2 +1,3 @@
 export * from './graphql.module';
-export * from './types';
+export * from './scalars';
+export * from './schema';

@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { join } from 'path';
+import { EthersBigNumberScalar } from './scalars';
 
 @Module({
   imports: [
@@ -8,7 +10,10 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
       driver: ApolloDriver,
       // debug: false,
       playground: true,
-      typePaths: ['./**/*.graphql'],
+      autoSchemaFile: join(__dirname, 'schema.gql'),
+      // resolvers: {
+      //   EthersBigBumber: EthersBigNumberScalar,
+      // },
     }),
   ],
   exports: [GraphQLModule],

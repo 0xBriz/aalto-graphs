@@ -69,7 +69,8 @@
   },
   "compilerOptions": {
     "webpack": true,
-    "tsConfigPath": "apps/graphs/tsconfig.app.json"
+    "tsConfigPath": "apps/graphs/tsconfig.app.json",
+    "plugins": ["@nestjs/graphql"]
   },
   "monorepo": true,
   "root": "apps/graphs"
