@@ -1,12 +1,13 @@
-import { VAULT_ABI, WeightFactoryABI } from './abis';
+import { VAULT_ABI, WEIGHTED_POOL_ABI, WeightFactoryABI } from './abis';
 import { NETWORKS } from './networks';
 
-export type Pools = 'AMES-BUSD' | 'ASHARE-BUSD';
+export type Pools = 'WeightedPool';
 export type AaltoContract =
   | 'Vault'
   | 'TimelockAuthorizer'
   | 'WeightedPoolFactory'
-  | 'Bank';
+  | 'Bank'
+  | Pools;
 
 export const getContractAddress = (
   contract: AaltoContract,
@@ -20,10 +21,11 @@ export const ABI_MAP: { [key in AaltoContract]: any[] } = {
   TimelockAuthorizer: [],
   Bank: [],
   WeightedPoolFactory: WeightFactoryABI,
+  WeightedPool: WEIGHTED_POOL_ABI,
 };
 
 export const CONTRACTS: {
-  [key in NETWORKS]?: { [key in AaltoContract]: string };
+  [key in NETWORKS]?: { [key in AaltoContract]?: string };
 } = {
   [NETWORKS.HARDHAT]: {
     Vault: '0x3B415b38f1c2aE9Af2D1e04F30188AD7dE883B7a',

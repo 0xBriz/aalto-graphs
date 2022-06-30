@@ -1,14 +1,10 @@
-import {
-  ContractUtils,
-  getContractAddress,
-  WeightFactoryABI,
-} from '0xbriz/data';
+import { ContractUtils } from '0xbriz/data';
 import { WEBSOCKET_PROVIDER } from '@0xbriz/providers';
 import { Inject, Injectable } from '@nestjs/common';
-import { ethers } from 'ethers';
+import { ContractReceipt, ethers } from 'ethers';
 
 @Injectable()
-export class DexEventService {
+export class PoolEventService {
   constructor(
     private readonly utils: ContractUtils,
     @Inject(WEBSOCKET_PROVIDER)
@@ -18,8 +14,100 @@ export class DexEventService {
   }
 
   setListeners() {
-    const weightedFactory = this.utils.getContract('WeightedPoolFactory', true);
-    console.log(weightedFactory.interface.events);
+    console.log('Setting pool event listeners');
+    const weightedFactory = this.utils.getContract('WeightedPoolFactory');
+
+    weightedFactory.on('PoolCreated', (poolAddress: string, info) => {
+      this.handleWeightedPoolCreated(poolAddress, info);
+    });
+
+    console.log('Pool event listeners set');
+  }
+
+  async handlePoolCreated(poolType: string) {}
+
+  // function createWeightedLikePool(event: PoolCreated, poolType: string): string {
+  //   let poolAddress: Address = event.params.pool;
+  //   let poolContract = WeightedPool.bind(poolAddress);
+
+  //   let poolIdCall = poolContract.try_getPoolId();
+  //   let poolId = poolIdCall.value;
+
+  //   let swapFeeCall = poolContract.try_getSwapFeePercentage();
+  //   let swapFee = swapFeeCall.value;
+
+  //   let ownerCall = poolContract.try_getOwner();
+  //   let owner = ownerCall.value;
+
+  //   let pool = handleNewPool(event, poolId, swapFee);
+  //   pool.poolType = poolType;
+  //   pool.factory = event.address;
+  //   pool.owner = owner;
+
+  //   let vaultContract = Vault.bind(VAULT_ADDRESS);
+  //   let tokensCall = vaultContract.try_getPoolTokens(poolId);
+
+  //   if (!tokensCall.reverted) {
+  //     let tokens = tokensCall.value.value0;
+  //     pool.tokensList = changetype<Bytes[]>(tokens);
+
+  //     for (let i: i32 = 0; i < tokens.length; i++) {
+  //       createPoolTokenEntity(poolId.toHexString(), tokens[i]);
+  //     }
+  //   }
+  //   pool.save();
+
+  //   // Load pool with initial weights
+  //   updatePoolWeights(poolId.toHexString());
+
+  //   return poolId.toHexString();
+  // }
+
+  async handleWeightedPoolCreated(poolAddress: string, info) {
+    try {
+      console.log('WeightedPoolFactory - PoolCreated');
+      const pool = this.utils.getContractInstance(
+        poolAddress,
+        'WeightedPool',
+        true,
+      );
+
+      const [poolId, swapFee, name, symbol, block, owner] = await Promise.all([
+        pool.getPoolId(),
+        pool.getSwapFeePercentage(),
+        pool.name(),
+        pool.symbol(),
+        info.getBlock(),
+        pool.getOwner(),
+      ]);
+
+      console.log(poolId);
+
+      const data = {
+        id: poolId.toString(),
+        address: poolAddress,
+        owner,
+        factory: info.address, // factory who emitted the event
+        swapFee: swapFee.toNumber(),
+        createdTime: block.timestamp, // block timestamp
+        tx: info.transactionHash, // from tx info
+        type: 'Weighted',
+        name,
+        symbol,
+      };
+
+      console.log(data);
+
+      console.log(info);
+
+      // Save pool
+      //
+      // increment vaults pool count
+      //
+      // Get token data and save token entities vault.getPoolTokens(poolId)
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   // VAULT

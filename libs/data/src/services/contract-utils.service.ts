@@ -26,4 +26,16 @@ export class ContractUtils {
       websockets ? this.wsProvider : this.provider,
     );
   }
+
+  getContractInstance(
+    address: string,
+    contract: AaltoContract,
+    websockets = false,
+  ) {
+    return new ethers.Contract(
+      address,
+      ABI_MAP[contract],
+      websockets ? this.wsProvider : this.provider,
+    );
+  }
 }

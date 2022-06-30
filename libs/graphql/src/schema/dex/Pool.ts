@@ -5,8 +5,9 @@ import { Vault } from './Vault';
 export class Pool {
   address: string;
 
-  poolType?: string;
+  poolType: string;
 
+  // Factory address that created this pool
   factory?: string;
 
   @Field(() => Int)
@@ -24,20 +25,22 @@ export class Pool {
 
   totalWeight?: string;
 
-  totalSwapVolume: string;
+  totalSwapVolume?: string;
 
-  totalSwapFee: string;
+  totalSwapFee?: string;
 
-  totalLiquidity: string;
+  totalLiquidity?: string;
 
-  totalShares: string;
+  totalShares?: string;
 
   @Field(() => Int)
   createTime: number;
 
-  swapsCount: number;
+  tx: string; // Tx hash
 
-  holdersCount: number;
+  swapsCount?: number;
+
+  holdersCount?: number;
 
   vaultId: Vault;
 }
