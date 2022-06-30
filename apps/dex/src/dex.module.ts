@@ -1,3 +1,4 @@
+import { DataModule } from '0xbriz/data';
 import { DatabaseModule } from '@0cbriz/database';
 import { ProvidersModule } from '@0xbriz/providers';
 import { Module } from '@nestjs/common';
@@ -7,7 +8,9 @@ import { DexEventService } from './services/event.service';
 import { DexStorageService } from './services/storage.service';
 
 @Module({
-  imports: [ProvidersModule, GraphqlModule, DatabaseModule],
+  imports: [ProvidersModule, GraphqlModule, DatabaseModule, DataModule],
   providers: [DexEventService, DexStorageService, VaultResolver],
 })
-export class DexModule {}
+export class DexModule {
+  constructor() {}
+}

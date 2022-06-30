@@ -1,3 +1,3 @@
 export * from './providers.module';
-export * from './network/networks';
 export * from './providers/rpc.provider';
+export * from './providers/websocket.provider';

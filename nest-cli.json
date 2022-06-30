@@ -56,12 +56,23 @@
       "compilerOptions": {
         "tsConfigPath": "libs/graphql/tsconfig.lib.json"
       }
+    },
+    "data": {
+      "type": "library",
+      "root": "libs/data",
+      "entryFile": "index",
+      "sourceRoot": "libs/data/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/data/tsconfig.lib.json"
+      }
     }
   },
   "compilerOptions": {
     "webpack": true,
     "tsConfigPath": "apps/graphs/tsconfig.app.json",
-    "plugins": ["@nestjs/graphql"]
+    "plugins": [
+      "@nestjs/graphql"
+    ]
   },
   "monorepo": true,
   "root": "apps/graphs"

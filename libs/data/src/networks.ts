@@ -10,8 +10,8 @@ export interface INetworkConfig {
 
 export const Network: { [key in NETWORKS]: INetworkConfig } = {
   [NETWORKS.BSC]: {
-    rpcUrl: '',
-    wsUrl: '',
+    rpcUrl: process.env.BSC_RPC,
+    wsUrl: process.env.BSC_WS_RPC,
   },
   [NETWORKS.HARDHAT]: {
     rpcUrl: 'http://localhost:8545',

@@ -42,6 +42,12 @@
       ],
       "oxbriz/graphql/*": [
         "libs/graphql/src/*"
+      ],
+      "0xbriz/data": [
+        "libs/data/src"
+      ],
+      "0xbriz/data/*": [
+        "libs/data/src/*"
       ]
     }
   }

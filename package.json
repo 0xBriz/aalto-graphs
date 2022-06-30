@@ -78,7 +78,8 @@
       "^@0xbriz/providers(|/.*)$": "<rootDir>/libs/providers/src/$1",
       "^@0xbriz/indexer(|/.*)$": "<rootDir>/libs/indexer/src/$1",
       "^@0cbriz/database(|/.*)$": "<rootDir>/libs/database/src/$1",
-      "^oxbriz/graphql(|/.*)$": "<rootDir>/libs/graphql/src/$1"
+      "^oxbriz/graphql(|/.*)$": "<rootDir>/libs/graphql/src/$1",
+      "^0xbriz/data(|/.*)$": "<rootDir>/libs/data/src/$1"
     }
   }
 }
