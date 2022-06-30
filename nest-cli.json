@@ -29,6 +29,42 @@
       "compilerOptions": {
         "tsConfigPath": "apps/core/tsconfig.app.json"
       }
+    },
+    "dex": {
+      "type": "application",
+      "root": "apps/dex",
+      "entryFile": "main",
+      "sourceRoot": "apps/dex/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/dex/tsconfig.app.json"
+      }
+    },
+    "indexer": {
+      "type": "library",
+      "root": "libs/indexer",
+      "entryFile": "index",
+      "sourceRoot": "libs/indexer/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/indexer/tsconfig.lib.json"
+      }
+    },
+    "database": {
+      "type": "library",
+      "root": "libs/database",
+      "entryFile": "index",
+      "sourceRoot": "libs/database/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/database/tsconfig.lib.json"
+      }
+    },
+    "graphql": {
+      "type": "library",
+      "root": "libs/graphql",
+      "entryFile": "index",
+      "sourceRoot": "libs/graphql/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/graphql/tsconfig.lib.json"
+      }
     }
   },
   "compilerOptions": {

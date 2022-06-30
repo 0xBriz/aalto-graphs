@@ -1,2 +1,3 @@
 export * from './providers.module';
-export * from './providers.service';
+export * from './network/networks';
+export * from './providers/rpc.provider';

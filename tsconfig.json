@@ -17,12 +17,31 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
+    "resolveJsonModule": true,
     "paths": {
       "@0xbriz/providers": [
         "libs/providers/src"
       ],
       "@0xbriz/providers/*": [
         "libs/providers/src/*"
+      ],
+      "@0xbriz/indexer": [
+        "libs/indexer/src"
+      ],
+      "@0xbriz/indexer/*": [
+        "libs/indexer/src/*"
+      ],
+      "@0cbriz/database": [
+        "libs/database/src"
+      ],
+      "@0cbriz/database/*": [
+        "libs/database/src/*"
+      ],
+      "oxbriz/graphql": [
+        "libs/graphql/src"
+      ],
+      "oxbriz/graphql/*": [
+        "libs/graphql/src/*"
       ]
     }
   }

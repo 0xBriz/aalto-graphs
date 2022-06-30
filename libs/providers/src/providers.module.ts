@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { ProvidersService } from './providers.service';
+import { RpcProvider } from './providers/rpc.provider';
 
 @Module({
-  providers: [ProvidersService],
-  exports: [ProvidersService],
+  providers: [RpcProvider],
+  exports: [RpcProvider],
 })
 export class ProvidersModule {}
