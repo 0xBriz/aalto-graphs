@@ -2,9 +2,9 @@ import { ContractUtils } from '0xbriz/data';
 import { WEBSOCKET_PROVIDER } from '@0xbriz/providers';
 import { Inject, Injectable } from '@nestjs/common';
 import { ethers } from 'ethers';
-import { Pool } from 'oxbriz/graphql';
+import { Pool, PoolToken, Token } from 'oxbriz/graphql';
 import { PoolDataService } from './pool-data.service';
-import { parseWeightPoolResponse } from './utils';
+import { getPoolTokenId, ONE, parseWeightPoolResponse, ZERO } from './utils';
 
 @Injectable()
 export class PoolEventService {
@@ -39,8 +39,6 @@ export class PoolEventService {
 
       // create pool
       const poolModel = await parseWeightPoolResponse(poolAddress, pool, info);
-      const id = await this.data.createNewPool(poolModel);
-      console.log(id);
 
       // Load pool with initial weights
       // updatePoolWeights(poolId.toHexString());
@@ -50,14 +48,75 @@ export class PoolEventService {
 
       // create pool tokens
       const tokens = await vault.getPoolTokens(poolModel.id);
+      console.log(tokens);
 
-      for (const token of tokens) {
-        await this.data.createPoolToken(token);
+      await this.data.createNewPool(poolModel);
+
+      for (const tokenAddress of tokens.tokens) {
+        await this.handlePoolToken(poolModel.id, tokenAddress);
       }
     } catch (error) {
       console.log(error);
     }
   }
+
+  handlePoolToken = async (poolId: string, tokenAddress: string) => {
+    try {
+      const tokenContract = this.utils.getERC20(tokenAddress);
+      const [name, symbol, decimals] = await Promise.all([
+        tokenContract.name(),
+        tokenContract.symbol(),
+        tokenContract.decimals(),
+      ]);
+
+      let _token = await this.data.getToken(tokenAddress);
+      if (!_token) {
+        _token = await this.createToken(tokenAddress);
+      }
+
+      const poolTokenId = getPoolTokenId(poolId, tokenAddress);
+
+      const poolToken = new PoolToken();
+      poolToken.id = poolTokenId;
+      poolToken.poolId = poolId;
+      poolToken.address = tokenAddress;
+      poolToken.name = name;
+      poolToken.symbol = symbol;
+      poolToken.decimals = decimals;
+      poolToken.balance = ZERO;
+      poolToken.invested = ZERO;
+      poolToken.priceRate = ONE;
+      poolToken.tokenId = _token._id as unknown as string;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  createToken = async (tokenAddress: string) => {
+    try {
+      const token = new Token();
+      const erc20token = this.utils.getERC20(tokenAddress);
+
+      const [name, symbol, decimals] = await Promise.all([
+        erc20token.name(),
+        erc20token.symbol(),
+        erc20token.decimals(),
+      ]);
+
+      token.name = name;
+      token.symbol = symbol;
+      token.decimals = decimals;
+      token.totalBalanceUSD = ZERO;
+      token.totalBalanceNotional = ZERO;
+      token.totalSwapCount = ZERO;
+      token.totalVolumeUSD = ZERO;
+      token.totalVolumeNotional = ZERO;
+      token.address = tokenAddress;
+      return await this.data.createToken(token);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // VAULT
   //  - event: Swap(indexed bytes32,indexed address,indexed address,uint256,uint256)

@@ -7,9 +7,13 @@ import { Token } from './Token';
 export class PoolToken {
   id: string;
 
-  poolId: Pool;
+  poolId: string;
+
+  pool: Pool;
 
   token: Token;
+
+  tokenId: string;
 
   symbol: string;
 

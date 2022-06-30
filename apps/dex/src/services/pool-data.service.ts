@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Db } from 'mongodb';
-import { Pool } from 'oxbriz/graphql';
+import { Db, WithId, Document } from 'mongodb';
+import { Pool, Token } from 'oxbriz/graphql';
 import { DEX_CONNECTION } from './database.provider';
 
 @Injectable()
@@ -17,7 +17,16 @@ export class PoolDataService {
 
   async updatePool() {}
 
-  async createPoolToken(token) {
-    console.log(token);
+  async createPoolToken(poolId: string, tokenAddress: string) {}
+
+  async createToken(token: Token) {
+    await this.db.collection('token').insertOne(token);
+    return this.getToken(token.address);
+  }
+
+  async getToken(address: string): Promise<Token & WithId<Document>> {
+    return await this.db.collection<Token & WithId<Document>>('token').findOne({
+      address,
+    });
   }
 }

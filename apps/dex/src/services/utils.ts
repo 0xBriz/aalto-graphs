@@ -1,5 +1,8 @@
 import { ethers } from 'ethers';
-import { Pool } from 'oxbriz/graphql';
+import { Pool, PoolToken } from 'oxbriz/graphql';
+
+export const ZERO = ethers.constants.Zero.toString();
+export const ONE = ethers.constants.One.toString();
 
 export const parseWeightPoolResponse = async (
   poolAddress: string,
@@ -26,9 +29,13 @@ export const parseWeightPoolResponse = async (
     poolType: 'Weighted',
     name,
     symbol,
-    strategyType: 1,
+    strategyType: parseInt(poolId.toString().slice(42, 46)),
     swapEnabled: true,
   };
 
   return data;
 };
+
+export function getPoolTokenId(poolId: string, tokenAddress: string): string {
+  return poolId.concat('-').concat(tokenAddress);
+}
