@@ -6,7 +6,6 @@ import { GraphqlModule } from 'oxbriz/graphql';
 import { VaultResolver } from './resolvers/Vault.resolver';
 import { PoolEventService } from './services/pool-event.service';
 import { PoolDataService } from './services/pool-data.service';
-import { VaultDataService } from './services/vault-data.service';
 import { DexConnectionProvider } from './services/database.provider';
 
 @Module({
@@ -15,7 +14,6 @@ import { DexConnectionProvider } from './services/database.provider';
     PoolEventService,
     PoolDataService,
     VaultResolver,
-    VaultDataService,
     DexConnectionProvider,
   ],
 })
