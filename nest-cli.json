@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/graphs/src",
+  "projects": {
+    "providers": {
+      "type": "library",
+      "root": "libs/providers",
+      "entryFile": "index",
+      "sourceRoot": "libs/providers/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/providers/tsconfig.lib.json"
+      }
+    },
+    "graphs": {
+      "type": "application",
+      "root": "apps/graphs",
+      "entryFile": "main",
+      "sourceRoot": "apps/graphs/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/graphs/tsconfig.app.json"
+      }
+    },
+    "core": {
+      "type": "application",
+      "root": "apps/core",
+      "entryFile": "main",
+      "sourceRoot": "apps/core/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/core/tsconfig.app.json"
+      }
+    }
+  },
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/graphs/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/graphs"
+}
