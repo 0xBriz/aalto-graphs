@@ -18,11 +18,7 @@ export class DexEventService {
   }
 
   setListeners() {
-    const weightedFactory = new ethers.Contract(
-      getContractAddress('WeightedPoolFactory', this.provider.network.chainId),
-      WeightFactoryABI,
-    );
-
+    const weightedFactory = this.utils.getContract('WeightedPoolFactory', true);
     console.log(weightedFactory.interface.events);
   }
 

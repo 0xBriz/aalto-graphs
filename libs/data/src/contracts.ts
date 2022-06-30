@@ -1,3 +1,4 @@
+import { VAULT_ABI, WeightFactoryABI } from './abis';
 import { NETWORKS } from './networks';
 
 export type Pools = 'AMES-BUSD' | 'ASHARE-BUSD';
@@ -12,6 +13,13 @@ export const getContractAddress = (
   chainId: number,
 ) => {
   return CONTRACTS[chainId][contract];
+};
+
+export const ABI_MAP: { [key in AaltoContract]: any[] } = {
+  Vault: VAULT_ABI,
+  TimelockAuthorizer: [],
+  Bank: [],
+  WeightedPoolFactory: WeightFactoryABI,
 };
 
 export const CONTRACTS: {
