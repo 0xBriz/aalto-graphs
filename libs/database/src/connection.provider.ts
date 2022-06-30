@@ -11,11 +11,11 @@ export const DatabaseConnectionProvider: Provider = {
       // Connect the client to the server
       await client.connect();
       // Establish and verify connection
-      await client.db('admin').command({ ping: 1 });
+      await client.db('dex').command({ ping: 1 });
       console.log('Connected successfully to database server');
+      return client;
     } catch (error) {
       throw error;
     }
   },
-  inject: [],
 };

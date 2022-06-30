@@ -5,11 +5,19 @@ import { Module } from '@nestjs/common';
 import { GraphqlModule } from 'oxbriz/graphql';
 import { VaultResolver } from './resolvers/Vault.resolver';
 import { PoolEventService } from './services/pool-event.service';
-import { DexStorageService } from './services/storage.service';
+import { PoolDataService } from './services/pool-data.service';
+import { VaultDataService } from './services/vault-data.service';
+import { DexConnectionProvider } from './services/database.provider';
 
 @Module({
   imports: [ProvidersModule, GraphqlModule, DatabaseModule, DataModule],
-  providers: [PoolEventService, DexStorageService, VaultResolver],
+  providers: [
+    PoolEventService,
+    PoolDataService,
+    VaultResolver,
+    VaultDataService,
+    DexConnectionProvider,
+  ],
 })
 export class DexModule {
   constructor() {}

@@ -1,7 +1,8 @@
 import { ContractUtils } from '0xbriz/data';
 import { WEBSOCKET_PROVIDER } from '@0xbriz/providers';
 import { Inject, Injectable } from '@nestjs/common';
-import { ContractReceipt, ethers } from 'ethers';
+import { ethers } from 'ethers';
+import { PoolDataService } from './pool-data.service';
 
 @Injectable()
 export class PoolEventService {
@@ -9,6 +10,7 @@ export class PoolEventService {
     private readonly utils: ContractUtils,
     @Inject(WEBSOCKET_PROVIDER)
     private provider: ethers.providers.WebSocketProvider,
+    private readonly data: PoolDataService,
   ) {
     this.setListeners();
   }
