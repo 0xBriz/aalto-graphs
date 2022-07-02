@@ -7,8 +7,10 @@ import { Pool } from './Pool';
 
 @ObjectType()
 export class GradualWeightUpdate {
+  @Field()
   id: string;
 
+  @Field(() => Pool)
   poolId: Pool;
 
   @Field(() => Int)
@@ -20,7 +22,9 @@ export class GradualWeightUpdate {
   @Field(() => Int)
   endTimestamp: number;
 
+  @Field(() => [String])
   startWeights: string[];
 
+  @Field(() => [String])
   endWeights: string[];
 }

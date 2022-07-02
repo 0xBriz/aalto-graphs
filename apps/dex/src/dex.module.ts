@@ -7,6 +7,7 @@ import { VaultResolver } from './resolvers/Vault.resolver';
 import { PoolEventService } from './services/pool-event.service';
 import { PoolDataService } from './services/pool-data.service';
 import { DexConnectionProvider } from './services/database.provider';
+import { PoolResolver } from './resolvers/PoolResolver';
 
 @Module({
   imports: [ProvidersModule, GraphqlModule, DatabaseModule, DataModule],
@@ -15,6 +16,7 @@ import { DexConnectionProvider } from './services/database.provider';
     PoolDataService,
     VaultResolver,
     DexConnectionProvider,
+    PoolResolver,
   ],
 })
 export class DexModule {

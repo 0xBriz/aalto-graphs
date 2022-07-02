@@ -1,11 +1,18 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Db, WithId, Document } from 'mongodb';
+import { Db, WithId, Document, Filter } from 'mongodb';
 import { Pool, Token } from 'oxbriz/graphql';
 import { DEX_CONNECTION } from './database.provider';
 
 @Injectable()
 export class PoolDataService {
   constructor(@Inject(DEX_CONNECTION) private db: Db) {}
+
+  async getPools(filters?: Filter<Document>) {
+    const cur = await this.db.collection('pool').find(filters);
+    const pools = await cur.toArray();
+    console.log(pools);
+    return pools;
+  }
 
   async createNewPool(pool: Pool) {
     try {

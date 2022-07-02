@@ -1,7 +1,11 @@
+import { config } from 'dotenv';
+
 export enum NETWORKS {
   BSC = 56,
   HARDHAT = 31337,
 }
+
+config();
 
 export interface INetworkConfig {
   rpcUrl: string;

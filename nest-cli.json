@@ -18,7 +18,8 @@
       "entryFile": "main",
       "sourceRoot": "apps/graphs/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/graphs/tsconfig.app.json"
+        "tsConfigPath": "apps/graphs/tsconfig.app.json",
+        "plugins": ["@nestjs/graphql"]
       }
     },
     "dex": {
@@ -27,7 +28,8 @@
       "entryFile": "main",
       "sourceRoot": "apps/dex/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/dex/tsconfig.app.json"
+        "tsConfigPath": "apps/dex/tsconfig.app.json",
+        "plugins": ["@nestjs/graphql"]
       }
     },
     "indexer": {
@@ -54,7 +56,8 @@
       "entryFile": "index",
       "sourceRoot": "libs/graphql/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/graphql/tsconfig.lib.json"
+        "tsConfigPath": "libs/graphql/tsconfig.lib.json",
+        "plugins": ["@nestjs/graphql"]
       }
     },
     "data": {
@@ -70,9 +73,7 @@
   "compilerOptions": {
     "webpack": true,
     "tsConfigPath": "apps/graphs/tsconfig.app.json",
-    "plugins": [
-      "@nestjs/graphql"
-    ]
+    "plugins": ["@nestjs/graphql"]
   },
   "monorepo": true,
   "root": "apps/graphs"
